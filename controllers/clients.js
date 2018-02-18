@@ -16,15 +16,27 @@ export const index = (req, res, next) => {
 };
 
 export const one = (req, res, next) => {
-  Client.findById(req.params._id).lean().exec((err, client) => res.json(
+  const _id = req.params._id;
+  Client.findById(_id).lean().exec((err, client) => res.json(
     {client}
   ));
 };
 
 export const save = (req, res, next) => {
+  const _id = req.params._id || 0;
+  const data = req.body;
 
+  Client.findByIdAndUpdate(_id, { $set: data }, { new: true }).exec((err, client) => {
+    const response = { success: true };
+    res.send(response);
+  });
 }
 
 export const remove = (req, res, next) => {
+  const _id = req.params._id;
 
+  Client.findByIdAndRemove(_id).exec((err, client) => {
+    const response = { success: true };
+    res.send(response);
+  });
 }

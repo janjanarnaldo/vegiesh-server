@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 
 // Import clients action from clients controller
-import { one, save, remove } from '../controllers/clients';
+import { one, save, update, remove } from '../controllers/clients';
 
 // Initialize the routers
 const client = Router();
@@ -9,6 +9,8 @@ const client = Router();
 // Single client
 client.route('/client/:_id')
   .get(one)
-  .post(save);
+  .post(save)
+  .put(save)
+  .delete(remove);
 
 export default client;
